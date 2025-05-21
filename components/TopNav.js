@@ -4,7 +4,6 @@ import { useSession, signOut } from "next-auth/react";
 
 export default function TopNav() {
   const { data, status } = useSession();
-  // console.log({ data, status });
 
   return (
     <nav className="nav shadow p-2 justify-content-between mb-3">
@@ -24,6 +23,8 @@ export default function TopNav() {
             Log out
           </a>
         </>
+      ) : status === "loading" ? (
+        <a className="nav-link text-danger">Loading</a>
       ) : (
         <div className="d-flex">
           <Link href="/login" className="nav-link">
