@@ -2,6 +2,14 @@ import config from "./config.js";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: "/api/register",
+        destination: "https://nextecom-bay.vercel.app/api/register",
+      },
+    ];
+  },
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
   env: {

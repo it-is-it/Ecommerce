@@ -5,7 +5,21 @@ const dbConnect = async () => {
     return;
   }
 
-  mongoose.connect(process.env.DB_URI);
+  const uri = process.env.DB_URI;
+  if (!uri) {
+    throw new Error("Please define the DB_URI environment variable inside .env.local");
+  }
+
+  try {
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Connected to MongoDB");
+  } catch (err) {
+    console.error("MongoDB connection error:", err);
+    throw err;
+  }
 };
 
 export default dbConnect;
