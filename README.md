@@ -2,8 +2,8 @@
 
 A fully functional, full stack ecommerce platform built with **Next.js**, **NextAuth**, and **MongoDB**, featuring complete authentication, product management, cart system, secure checkout, and admin dashboard capabilities.
 
-> **Live Demo**: [your-demo-link.com]  
-> **Demo Login**: `demo@demo.com` / `demo1234`
+> **Live Demo**: [Next Ecommerce WebApp](https://nextecom-bay.vercel.app/)]  
+> **Demo Login**: `test@test.com` / `test1234`
 
 ---
 
