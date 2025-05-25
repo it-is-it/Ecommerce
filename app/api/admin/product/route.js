@@ -10,10 +10,10 @@ export async function POST(req) {
   try {
     const product = await Product.create({
       ...body,
-      slug: slugify(title),
+      slug: slugify(body.title),
     });
     return NextResponse.json(product);
   } catch (err) {
-    return NextResponse.json({ err: err.message }, { status: 500 });
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }

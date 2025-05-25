@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/utils/dbConnect";
 import Product from "@/models/product";
-import slugify from "slugify";
 import queryString from "query-string";
 
 export async function GET(req) {
@@ -17,7 +16,6 @@ export async function GET(req) {
       .skip(skip)
       .limit(pageSize)
       .sort({ createdAt: -1 });
-    const totalPages = Math.ceil(totalProducts / pageSize);
     return NextResponse.json({
       products,
       totalPages: Math.ceil(totalProducts / pageSize),
