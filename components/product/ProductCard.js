@@ -8,7 +8,9 @@ dayjs.extend(relativeTime);
 export default function ProductCard({ product }) {
   return (
     <div key={product?._id} className="card my-4 col-lg-4 ">
-      <div style={{ position: "relative", height: "300px", overflow: "hidden" }}>
+      <div
+        style={{ position: "relative", height: "300px", overflow: "hidden" }}
+      >
         <Image
           alt={product?.name ?? "Product image"}
           src={product?.images?.[0]?.secure_url || `/images/default.jpeg`}
@@ -27,16 +29,11 @@ export default function ProductCard({ product }) {
                 : product?.description,
           }}
         />
-        <p className="card-text">Price: ${product?.price}</p>
-        <p className="card-text">Stock: {product?.stock}</p>
-        <p className="card-text">Shipping: {product?.shipping}</p>
-        <p className="card-text">Category: {product?.category}</p>
-        <p className="card-text">Tags: {product?.tags.join(", ")}</p>
-        <p className="card-text">Likes: {product?.likes.length}</p>
-        <p className="card-text">Ratings: {product?.ratings.length}</p>
-        <p className="card-text">Sold: {product?.sold}</p>
-        <p className="card-text">Created At: {product?.createdAt}</p>
-        <p className="card-text">Updated At: {product?.updatedAt}</p>
+      </div>
+
+      <div className="card-footer d-flex justify-content-between">
+        <small>Category: {product?.category?.name}</small>
+        <small>Tags: {product?.tags?.map((tag) => tag.name).join(", ")}</small>
       </div>
     </div>
   );
