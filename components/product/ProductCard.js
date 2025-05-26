@@ -7,7 +7,7 @@ dayjs.extend(relativeTime);
 
 export default function ProductCard({ product }) {
   return (
-    <div key={product?._id} className="card my-4 col-lg-4 ">
+    <div key={product?._id} className="card my-3">
       <div
         style={{ position: "relative", height: "300px", overflow: "hidden" }}
       >
@@ -19,7 +19,9 @@ export default function ProductCard({ product }) {
         />
       </div>
       <div className="card-body">
-        <h5 className="card-title">{product?.title}</h5>
+        <Link href={`/product/${product?.slug}`}>
+          <h5 className="card-title">{product?.title}</h5>
+        </Link>
         <div
           className="card-text"
           dangerouslySetInnerHTML={{
@@ -34,6 +36,15 @@ export default function ProductCard({ product }) {
       <div className="card-footer d-flex justify-content-between">
         <small>Category: {product?.category?.name}</small>
         <small>Tags: {product?.tags?.map((tag) => tag.name).join(", ")}</small>
+      </div>
+
+      <div className="card-footer d-flex justify-content-between">
+        <small>🩷 Likes</small>
+        <small>Created at: {dayjs(product?.createdAt).fromNow()}</small>
+      </div>
+      <div className="card-footer d-flex justify-content-between">
+        <small>Brand: {product?.brand}</small>
+        <small>⭐️ stars</small>
       </div>
     </div>
   );
