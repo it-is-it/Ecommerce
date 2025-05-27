@@ -14,7 +14,8 @@ export default function ProductCard({ product }) {
         <Image
           alt={product?.name ?? "Product image"}
           src={product?.images?.[0]?.secure_url || `/images/default.jpeg`}
-          fill
+          width={300}
+          height={350}
           style={{ objectFit: "cover" }}
         />
       </div>

@@ -21,7 +21,8 @@ async function getProduct(slug) {
 }
 
 export default async function ProductViewPage({ params }) {
-  const product = await getProduct(params?.slug);
+  const { slug } = await params;
+  const product = await getProduct(slug);
   return (
     <div className="container my-4">
       <div className="row">
