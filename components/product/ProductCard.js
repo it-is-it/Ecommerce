@@ -20,7 +20,15 @@ export default function ProductCard({ product }) {
       </div>
       <div className="card-body">
         <Link href={`/product/${product?.slug}`}>
-          <h5 className="card-title">{product?.title}</h5>
+          <div
+            className="card-title"
+            dangerouslySetInnerHTML={{
+              __html:
+                product?.title?.length > 50
+                  ? `${product?.title?.substring(0, 50)} ...`
+                  : product?.title,
+            }}
+          />
         </Link>
         <div
           className="card-text"

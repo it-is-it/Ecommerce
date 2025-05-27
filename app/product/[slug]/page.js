@@ -1,3 +1,9 @@
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import ProductImage from "@/components/product/ProductImage";
+
+dayjs.extend(relativeTime);
+
 async function getProduct(slug) {
   const response = await fetch(`${process.env.API}/product/${slug}`, {
     method: "GET",
@@ -19,9 +25,41 @@ export default async function ProductViewPage({ params }) {
   return (
     <div className="container my-4">
       <div className="row">
-        <div className="col-lg-8 offset-lg-2">
-          <h1 className="text-center">{JSON.stringify(product, null, 4)}</h1>
-          {/* <p className="lead text-center">Product View Page</p> */}
+        <div className="col-lg-8 offset-lg-2 card py-5">
+          <h1 className="text-center">{product?.title}</h1>
+
+          <ProductImage product={product} />
+
+          <div className="card-body">
+            <div
+              className="card-text"
+              dangerouslySetInnerHTML={{
+                __html: product?.description,
+              }}
+            />
+          </div>
+          <div className="card-footer d-flex justify-content-between">
+            <small>Category: {product?.category?.name}</small>
+            <small>
+              Tags: {product?.tags?.map((tag) => tag.name).join(", ")}
+            </small>
+          </div>
+
+          <div className="card-footer d-flex justify-content-between">
+            <small>🩷 Likes</small>
+            <small>Created at: {dayjs(product?.createdAt).fromNow()}</small>
+          </div>
+
+          <div className="card-footer d-flex justify-content-between">
+            <small>Brand: {product?.brand}</small>
+            <small>⭐️ stars</small>
+          </div>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col">
+          <h4 className="text-center my-5">Related Products</h4>
         </div>
       </div>
     </div>
