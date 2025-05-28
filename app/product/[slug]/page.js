@@ -35,7 +35,9 @@ export default async function ProductViewPage({ params }) {
             <div
               className="card-text"
               dangerouslySetInnerHTML={{
-                __html: product?.description,
+                __html: product?.description
+                  .replace(/\./g, "<br />")
+                  .replace(/\n/g, "<br />"),
               }}
             />
           </div>

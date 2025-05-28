@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function ProductImage({ product }) {
   const [shoeImagePreviewModal, setShowImagePreviewModal] = useState(false);
@@ -23,20 +23,21 @@ export default function ProductImage({ product }) {
       width={500}
       height={300}
       className="card-img-top"
-      style={{ objectFit: "cover", width: "100%", height: "100%" }}
+      style={{ objectFit: "contain", width: "100%", height: "100%" }}
     />
   );
   return (
     <>
       {shoeImagePreviewModal && (
-        <div className="modal fade show" style={{ display: "block" }}>
+        <div className="modal fade show" style={{ display: "block" }} onClick={closeModal}>
           <div
             className="modal-dialog modal-dialog-centered modal-lg"
-            style={{ maxHeight: "90vh" }}
+            style={{ maxHeight: "calc(100vh -60px)" }}
+            onClick={(e) => e.stopPropagation()}
           >
             <div
               className="modal-content"
-              style={{ height: "90%", width: "90%" }}
+              style={{ height: "calc(100% -60px)" }}
             >
               <div className="modal-body">
                 {showImage(currentImagePreviewUrl, product?.title)}
@@ -76,6 +77,7 @@ export default function ProductImage({ product }) {
           <div
             style={{ height: "350px", overflow: "hidden" }}
             className="pointer"
+            onClick={() => openModal("/images/default.jpeg")}
           >
             {showImage("/images/default.jpeg", product?.title)}
           </div>
