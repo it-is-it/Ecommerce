@@ -1,21 +1,9 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import Modal from "@/components/Modal";
+import { useProduct } from "@/context/product";
 
 export default function ProductImage({ product }) {
-  const [shoeImagePreviewModal, setShowImagePreviewModal] = useState(false);
-  const [currentImagePreviewUrl, setCurrentImagePreviewUrl] = useState("");
-
-  const openModal = (url) => {
-    setCurrentImagePreviewUrl(url);
-    setShowImagePreviewModal(true);
-  };
-
-  const closeModal = () => {
-    setShowImagePreviewModal(false);
-    setCurrentImagePreviewUrl("");
-  };
-
   const showImage = (src, title) => (
     <Image
       alt={title ?? "Product image"}
@@ -26,35 +14,14 @@ export default function ProductImage({ product }) {
       style={{ objectFit: "contain", width: "100%", height: "100%" }}
     />
   );
+
+  const { showImagePreviewModal, currentImagePreviewUrl, openModal } =
+    useProduct();
+
   return (
     <>
-      {shoeImagePreviewModal && (
-        <div className="modal fade show" style={{ display: "block" }} onClick={closeModal}>
-          <div
-            className="modal-dialog modal-dialog-centered modal-lg"
-            style={{ maxHeight: "calc(100vh -60px)" }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div
-              className="modal-content"
-              style={{ height: "calc(100% -60px)" }}
-            >
-              <div className="modal-body">
-                {showImage(currentImagePreviewUrl, product?.title)}
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={closeModal}
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+      {showImagePreviewModal && (
+        <Modal>{showImage(currentImagePreviewUrl, product?.title)}</Modal>
       )}
       <div className="d-flex justify-content-center align-items-center">
         {product?.images?.length > 0 ? (

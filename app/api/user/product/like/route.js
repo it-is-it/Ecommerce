@@ -25,3 +25,17 @@ export async function PUT(req) {
     );
   }
 }
+
+export async function GET(req) {
+  await dbConnect();
+  const user = await currentUser();
+  try {
+    const likedProducts = await Product.find({ likes: user._id });
+    return NextResponse.json(likedProducts);
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to fetch liked products" },
+      { status: 500 }
+    );
+  }
+}

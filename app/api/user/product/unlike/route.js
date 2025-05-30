@@ -20,7 +20,7 @@ export async function PUT(req) {
     return NextResponse.json(updated);
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to like product" },
+      { error: "Failed to unlike product" },
       { status: 500 }
     );
   }

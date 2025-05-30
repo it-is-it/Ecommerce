@@ -26,7 +26,7 @@ export default function ProductCard({ product }) {
             dangerouslySetInnerHTML={{
               __html:
                 product?.title?.length > 50
-                  ? `${product?.title?.substring(0, 50)} ...`
+                  ? `${product?.title?.substring(0, 50)}`
                   : product?.title,
             }}
           />

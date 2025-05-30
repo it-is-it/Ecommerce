@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import ProductImage from "@/components/product/ProductImage";
+import ProductLike from "@/components/product/ProductLike";
 
 dayjs.extend(relativeTime);
 
@@ -49,7 +50,7 @@ export default async function ProductViewPage({ params }) {
           </div>
 
           <div className="card-footer d-flex justify-content-between">
-            <small>🩷 Likes</small>
+            <ProductLike product={product} />
             <small>Created at: {dayjs(product?.createdAt).fromNow()}</small>
           </div>
 

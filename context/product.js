@@ -1,7 +1,6 @@
 "use client";
-import { useState, useContext, createContext } from "react";
+import { useState, useContext, createContext, useEffect } from "react";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import Resizer from "react-image-file-resizer";
 
 export const ProductContext = createContext();
@@ -13,7 +12,36 @@ export const ProductProvider = ({ children }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [updatingProduct, setUpdatingProduct] = useState(null);
   const [uploading, setUploading] = useState(false);
-  const router = useRouter();
+
+  const [showRatingModal, setShowRatingModal] = useState(false);
+  const [currentRating, setCurrentRating] = useState(0);
+  const [comment, setComment] = useState("");
+
+  const [showImagePreviewModal, setShowImagePreviewModal] = useState(false);
+  const [currentImagePreviewUrl, setCurrentImagePreviewUrl] = useState("");
+
+  useEffect(() => {
+    // window.addEventListener("click", handleClickOutside);
+    // return () => {
+    //   window.removeEventListener("click", handleClickOutside);
+    // };
+
+    // function handleClickOutside(e) {
+    //   if (!e.target.classList.contains("modal")) {
+    //     closeModal();
+    //   }
+    // }
+  }, []);
+
+  const openModal = (url) => {
+    setCurrentImagePreviewUrl(url);
+    setShowImagePreviewModal(true);
+  };
+
+  const closeModal = () => {
+    setShowImagePreviewModal(false);
+    setCurrentImagePreviewUrl("");
+  };
 
   const uploadImages = (e) => {
     const files = e.target.files;
@@ -208,6 +236,18 @@ export const ProductProvider = ({ children }) => {
         fetchProducts,
         updateProduct,
         deleteProduct,
+        showImagePreviewModal,
+        setShowImagePreviewModal,
+        currentImagePreviewUrl,
+        setCurrentImagePreviewUrl,
+        openModal,
+        closeModal,
+        showRatingModal,
+        setShowRatingModal,
+        currentRating,
+        setCurrentRating,
+        comment,
+        setComment,
       }}
     >
       {children}
