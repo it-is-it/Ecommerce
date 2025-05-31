@@ -15,6 +15,11 @@ export async function GET(req) {
     const products = await Product.find({})
       .populate("category", "name slug")
       .populate("tags", "name slug")
+      .populate({
+        path: "ratings.postedBy",
+        model: "User",
+        select: "name",
+      })
       .skip(skip)
       .limit(pageSize)
       .sort({ createdAt: -1 });
