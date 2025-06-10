@@ -20,19 +20,6 @@ export const ProductProvider = ({ children }) => {
   const [showImagePreviewModal, setShowImagePreviewModal] = useState(false);
   const [currentImagePreviewUrl, setCurrentImagePreviewUrl] = useState("");
 
-  useEffect(() => {
-    // window.addEventListener("click", handleClickOutside);
-    // return () => {
-    //   window.removeEventListener("click", handleClickOutside);
-    // };
-
-    // function handleClickOutside(e) {
-    //   if (!e.target.classList.contains("modal")) {
-    //     closeModal();
-    //   }
-    // }
-  }, []);
-
   const openModal = (url) => {
     setCurrentImagePreviewUrl(url);
     setShowImagePreviewModal(true);
@@ -41,6 +28,7 @@ export const ProductProvider = ({ children }) => {
   const closeModal = () => {
     setShowImagePreviewModal(false);
     setCurrentImagePreviewUrl("");
+    setShowRatingModal(false);
   };
 
   const uploadImages = (e) => {

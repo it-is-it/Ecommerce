@@ -42,6 +42,8 @@ export default async function ProductViewPage({ params }) {
                   .replace(/\n/g, "<br />"),
               }}
             />
+
+            <div className="alert alert-primary">Brand: {product?.brand}</div>
           </div>
           <div className="card-footer d-flex justify-content-between">
             <small>Category: {product?.category?.name}</small>
@@ -55,12 +57,7 @@ export default async function ProductViewPage({ params }) {
             <small>Created at: {dayjs(product?.createdAt).fromNow()}</small>
           </div>
 
-          <div className="card-footer d-flex justify-content-between">
-            <small>Brand: {product?.brand}</small>
-            <small>
-              <ProductRating />
-            </small>
-          </div>
+          <ProductRating product={product} />
         </div>
       </div>
 
