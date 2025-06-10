@@ -56,8 +56,9 @@ export default async function ProductViewPage({ params }) {
             <ProductLike product={product} />
             <small>Created at: {dayjs(product?.createdAt).fromNow()}</small>
           </div>
-
-          <ProductRating product={product} />
+          <div className="card-footer">
+            <ProductRating product={product} />
+          </div>
         </div>
       </div>
 
