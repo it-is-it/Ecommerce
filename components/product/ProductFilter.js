@@ -1,13 +1,32 @@
 "use client";
 import { priceRanges } from "@/utils/filterData";
+import { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useProduct } from "@/context/product";
+import { useTag } from "@/context/tag";
+import { useCategory } from "@/context/category";
+import Stars from "./Stars";
+
 export default function ProductFilter({ searchParams }) {
   const pathname = "/shop";
   const { minPrice, maxPrice, ratings, category, tag, brand } = searchParams;
+
+  const { fetchCategoriesPublic, categories } = useCategory();
+  const { fetchTagsPublic, tags } = useTag();
+  const { fetchBrands, brands } = useProduct();
+
+  useEffect(() => {
+    fetchCategoriesPublic();
+    fetchTagsPublic();
+    fetchBrands();
+  }, []);
+
   const router = useRouter();
+
   const activeButton = "btn btn-primary btn-raised mx-1 rounded-pill";
   const button = "btn btn-secondary btn-raised mx-1 rounded-pill";
+
   const handleRemoveFilter = (filterName) => {
     const updatedSearchParams = { ...searchParams };
     // delete updatedSearchParams[filterName];
@@ -24,7 +43,15 @@ export default function ProductFilter({ searchParams }) {
     // reset page to 1 when applying new filtering options
     updatedSearchParams.page = 1;
     // Whitelist only allowed filters
-    const allowed = ['minPrice','maxPrice','ratings','category','tag','brand','page'];
+    const allowed = [
+      "minPrice",
+      "maxPrice",
+      "ratings",
+      "category",
+      "tag",
+      "brand",
+      "page",
+    ];
     Object.keys(updatedSearchParams).forEach((key) => {
       if (!allowed.includes(key)) delete updatedSearchParams[key];
     });
@@ -32,6 +59,7 @@ export default function ProductFilter({ searchParams }) {
     const newUrl = `${pathname}?${queryString}`;
     router.push(newUrl);
   };
+
   return (
     <div>
       <p className="lead">Filter Products</p>
@@ -69,7 +97,106 @@ export default function ProductFilter({ searchParams }) {
           );
         })}
       </div>
+      <p className="mt-4 alert alert-primary">Categories</p>
+      <div className="row d-flex align-items-center mx-1 filter-scroll">
+        {categories?.map((c) => {
+          const isActive = category === c._id;
+          const url = {
+            pathname,
+            query: {
+              ...searchParams,
+              category: c?._id,
+              page: 1,
+            },
+          };
+          return (
+            <div key={c._id}>
+              <Link href={url} className={isActive ? activeButton : button}>
+                {c?.name}
+              </Link>
+              {isActive && (
+                <span
+                  onClick={() => handleRemoveFilter("category")}
+                  className="pointer"
+                >
+                  X
+                </span>
+              )}
+            </div>
+          );
+        })}
+      </div>
 
+      {category && (
+        <>
+          <p className="mt-4 alert alert-primary">Tags</p>
+          <div
+            className="row d-flex align-items-center mx-1 filter
+scroll"
+          >
+            {tags
+              ?.filter((t) => t?.parentCategory === category)
+              ?.map((t) => {
+                const isActive = tag === t._id;
+                const url = {
+                  pathname,
+                  query: {
+                    ...searchParams,
+                    tag: t?._id,
+                    page: 1,
+                  },
+                };
+                return (
+                  <div key={t._id}>
+                    <Link
+                      href={url}
+                      className={isActive ? activeButton : button}
+                    >
+                      {t?.name}
+                    </Link>
+                    {isActive && (
+                      <span
+                        onClick={() => handleRemoveFilter("tag")}
+                        className="pointer"
+                      >
+                        X
+                      </span>
+                    )}
+                  </div>
+                );
+              })}
+          </div>
+        </>
+      )}
+      <p className="mt-4 alert alert-primary">Brands</p>
+      <div className="row d-flex align-items-center mx-1 filter-scroll">
+        {brands?.map((b) => {
+          const isActive = brand === b;
+          const url = {
+            pathname,
+            query: {
+              ...searchParams,
+              brand: b,
+              page: 1,
+            },
+          };
+          return (
+            <div key={b}>
+              <Link href={url} className={isActive ? activeButton : button}>
+                {b}
+              </Link>
+              {isActive && (
+                <span
+                  onClick={() => handleRemoveFilter("brand")}
+                  className="pointer"
+                >
+                  X
+                </span>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -9,7 +9,27 @@ async function getProducts(searchParams) {
     tag: searchParams.tag || "",
     brand: searchParams.brand || "",
   }).toString();
+  try {
+    const response = await fetch(
+      `${process.env.API}/product/filters?${searchQuery}`,
+      {
+        method: "GET",
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch products");
+    }
+    const data = await response.json();
+    if (!data || !Array.isArray(data.products)) {
+      throw new Error("No products returned");
+    }
+    return data;
+  } catch (err) {
+    console.log(err);
+    return { products: [], currentPage: 1, totalPages: 1 };
+  }
 }
+
 export default async function Shop({ searchParams }) {
   const resolvedSearchParams = await searchParams;
   const data = await getProducts(resolvedSearchParams);

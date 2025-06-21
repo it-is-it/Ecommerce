@@ -12,6 +12,8 @@ export const ProductProvider = ({ children }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [updatingProduct, setUpdatingProduct] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [productSearchQuery, setProductSearchQuery] = useState("");
+  const [productSearchResults, setProductSearchResults] = useState([]);
 
   const [showRatingModal, setShowRatingModal] = useState(false);
   const [currentRating, setCurrentRating] = useState(0);
@@ -19,6 +21,7 @@ export const ProductProvider = ({ children }) => {
 
   const [showImagePreviewModal, setShowImagePreviewModal] = useState(false);
   const [currentImagePreviewUrl, setCurrentImagePreviewUrl] = useState("");
+  const [brands, setBrands] = useState([]);
 
   const openModal = (url) => {
     setCurrentImagePreviewUrl(url);
@@ -117,6 +120,43 @@ export const ProductProvider = ({ children }) => {
         console.log("Error deleting image:", err);
       })
       .finally(() => setUploading(false));
+  };
+
+  const fetchBrands = async () => {
+    try {
+      const response = await fetch(`${process.env.API}/product/brands`, {
+        method: "GET",
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        toast.error(data?.err);
+      } else {
+        setBrands(data);
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error("Error fetching brands");
+    }
+  };
+
+  const fetchProductSearchResults = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `${process.env.API}/search/products?
+   productSearchQuery=${productSearchQuery}`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setProductSearchResults(data);
+      // console.log("search results => ", data);
+      router.push(`/search/products?
+   productSearchQuery=${productSearchQuery}`);
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    }
   };
 
   const createProduct = async () => {
@@ -236,6 +276,8 @@ export const ProductProvider = ({ children }) => {
         setCurrentRating,
         comment,
         setComment,
+        fetchBrands,
+        brands,
       }}
     >
       {children}
