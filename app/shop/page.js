@@ -11,13 +11,13 @@ async function getProducts(searchParams) {
   }).toString();
 }
 export default async function Shop({ searchParams }) {
-  console.log("searchParams in shop page => ", searchParams);
-  const data = await getProducts(searchParams);
+  const resolvedSearchParams = await searchParams;
+  const data = await getProducts(resolvedSearchParams);
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-lg-3 d-flex justify-content-between">
-          <ProductFilter searchParams={searchParams} />
+          <ProductFilter searchParams={resolvedSearchParams} />
           <div className="col-lg-9">Products list</div>
         </div>
       </div>

@@ -1,18 +1,44 @@
+"use client";
 import { priceRanges } from "@/utils/filterData";
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 export default function ProductFilter({ searchParams }) {
   const pathname = "/shop";
   const { minPrice, maxPrice, ratings, category, tag, brand } = searchParams;
-
-  const button = "btn btn-secondary mx-1 border-20";
-  const activeButton = "btn btn-primary mx-1 border-20";
-
+  const router = useRouter();
+  const activeButton = "btn btn-primary btn-raised mx-1 rounded-pill";
+  const button = "btn btn-secondary btn-raised mx-1 rounded-pill";
+  const handleRemoveFilter = (filterName) => {
+    const updatedSearchParams = { ...searchParams };
+    // delete updatedSearchParams[filterName];
+    // if filterName is string
+    if (typeof filterName === "string") {
+      delete updatedSearchParams[filterName];
+    }
+    // if filterName is array
+    if (Array.isArray(filterName)) {
+      filterName?.forEach((name) => {
+        delete updatedSearchParams[name];
+      });
+    }
+    // reset page to 1 when applying new filtering options
+    updatedSearchParams.page = 1;
+    // Whitelist only allowed filters
+    const allowed = ['minPrice','maxPrice','ratings','category','tag','brand','page'];
+    Object.keys(updatedSearchParams).forEach((key) => {
+      if (!allowed.includes(key)) delete updatedSearchParams[key];
+    });
+    const queryString = new URLSearchParams(updatedSearchParams).toString();
+    const newUrl = `${pathname}?${queryString}`;
+    router.push(newUrl);
+  };
   return (
     <div>
       <p className="lead">Filter Products</p>
-
-      <p className="text-primary mt-4 alert alert-secondary">Price</p>
+      <Link className="text-danger" href="/shop">
+        Clear Filters
+      </Link>
+      <p className="mt-4 alert alert-primary">Price</p>
       <div className="row d-flex align-items-center mx-1">
         {priceRanges?.map((range) => {
           const url = {
@@ -24,18 +50,26 @@ export default function ProductFilter({ searchParams }) {
               page: 1,
             },
           };
-
           const isActive =
             minPrice === String(range?.min) && maxPrice === String(range?.max);
           return (
-            <Link href={url} className={isActive ? activeButton : button}>
-              {range?.label}
-            </Link>
+            <div key={range?.label}>
+              <Link href={url} className={isActive ? activeButton : button}>
+                {range?.label}
+              </Link>
+              {isActive && (
+                <span
+                  onClick={() => handleRemoveFilter(["minPrice", "maxPrice"])}
+                  className="pointer"
+                >
+                  X
+                </span>
+              )}
+            </div>
           );
         })}
       </div>
 
-      <pre>{JSON.stringify(searchParams, null, 4)}</pre>
     </div>
   );
 }
