@@ -1,4 +1,7 @@
 import ProductFilter from "@/components/product/ProductFilter";
+
+export const dynamic = "force-dynamic";
+
 async function getProducts(searchParams) {
   const searchQuery = new URLSearchParams({
     page: searchParams.page || 1,
@@ -36,7 +39,7 @@ export default async function Shop({ searchParams }) {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-lg-3 d-flex justify-content-between">
+        <div className="col-lg-3 overflow-auto" style={{ maxHeight: "90vh" }}>
           <ProductFilter searchParams={resolvedSearchParams} />
           <div className="col-lg-9">Products list</div>
         </div>

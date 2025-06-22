@@ -25,7 +25,7 @@ export default function ProductFilter({ searchParams }) {
   const router = useRouter();
 
   const activeButton = "btn btn-primary btn-raised mx-1 rounded-pill";
-  const button = "btn btn-secondary btn-raised mx-1 rounded-pill";
+  const button = "btn btn-raised mx-1 rounded-pill";
 
   const handleRemoveFilter = (filterName) => {
     const updatedSearchParams = { ...searchParams };
@@ -61,7 +61,7 @@ export default function ProductFilter({ searchParams }) {
   };
 
   return (
-    <div>
+    <div className="mb-5">
       <p className="lead">Filter Products</p>
       <Link className="text-danger" href="/shop">
         Clear Filters
@@ -97,6 +97,45 @@ export default function ProductFilter({ searchParams }) {
           );
         })}
       </div>
+
+      <p className="mt-4 alert alert-primary">Ratings</p>
+      <div className="row d-flex align-items-center mx-1">
+        {[5, 4, 3, 2, 1].map((ratingValue) => {
+          const isActive = String(ratings) === String(ratingValue);
+
+          const url = {
+            pathname,
+            query: {
+              ...searchParams,
+              ratings: ratingValue,
+              page: 1,
+            },
+          };
+          return (
+            <div key={ratingValue}>
+              <Link
+                href={url}
+                className={
+                  isActive
+                    ? "btn btn-primary btn-raised mx-1 rounded-pill"
+                    : "btn btn-raised mx-1 rounded-pill"
+                }
+              >
+                <Stars rating={ratingValue} />
+              </Link>
+              {isActive && (
+                <span
+                  onClick={() => handleRemoveFilter("ratings")}
+                  className="pointer"
+                >
+                  X
+                </span>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
       <p className="mt-4 alert alert-primary">Categories</p>
       <div className="row d-flex align-items-center mx-1 filter-scroll">
         {categories?.map((c) => {

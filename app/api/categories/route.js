@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/utils/dbConnect";
 import Category from "@/models/category";
+
 export async function GET() {
   await dbConnect();
   try {
@@ -10,4 +11,3 @@ export async function GET() {
     return NextResponse.json(err.message, { status: 500 });
   }
 }
-
