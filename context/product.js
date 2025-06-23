@@ -2,6 +2,7 @@
 import { useState, useContext, createContext, useEffect } from "react";
 import toast from "react-hot-toast";
 import Resizer from "react-image-file-resizer";
+import { useRouter } from "next/navigation";
 
 export const ProductContext = createContext();
 
@@ -22,6 +23,7 @@ export const ProductProvider = ({ children }) => {
   const [showImagePreviewModal, setShowImagePreviewModal] = useState(false);
   const [currentImagePreviewUrl, setCurrentImagePreviewUrl] = useState("");
   const [brands, setBrands] = useState([]);
+  const router = useRouter();
 
   const openModal = (url) => {
     setCurrentImagePreviewUrl(url);
@@ -143,8 +145,10 @@ export const ProductProvider = ({ children }) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `${process.env.API}/search/products?
-   productSearchQuery=${productSearchQuery}`
+        `${process.env.API}/search/products?productSearchQuery=${productSearchQuery}`,
+        {
+          method: "GET",
+        }
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -152,8 +156,7 @@ export const ProductProvider = ({ children }) => {
       const data = await response.json();
       setProductSearchResults(data);
       // console.log("search results => ", data);
-      router.push(`/search/products?
-   productSearchQuery=${productSearchQuery}`);
+      router.push(`/search/products?productSearchQuery=${productSearchQuery}`);
     } catch (error) {
       console.error("Error fetching search results:", error);
     }
@@ -278,6 +281,11 @@ export const ProductProvider = ({ children }) => {
         setComment,
         fetchBrands,
         brands,
+        productSearchQuery,
+        setProductSearchQuery,
+        productSearchResults,
+        setProductSearchResults,
+        fetchProductSearchResults,
       }}
     >
       {children}

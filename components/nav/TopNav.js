@@ -1,9 +1,17 @@
 "use client";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
+import { useProduct } from "@/context/product";
+import { HiSearch } from "react-icons/hi";
 
 export default function TopNav() {
   const { data, status } = useSession();
+
+  const {
+    productSearchQuery,
+    setProductSearchQuery,
+    fetchProductSearchResults,
+  } = useProduct();
 
   return (
     <nav className="nav shadow p-2 justify-content-between mb-3">
@@ -15,6 +23,24 @@ export default function TopNav() {
           Shop
         </Link>
       </div>
+
+      <form
+        className="d-flex mx-2 mb-0"
+        role="search"
+        onSubmit={fetchProductSearchResults}
+      >
+        <input
+          type="search"
+          className="form-control"
+          placeholder="Search products..."
+          aria-label="Search"
+          onChange={(e) => setProductSearchQuery(e.target.value)}
+          value={productSearchQuery}
+        />
+        <button className="btn rounded-pill" type="submit">
+          <HiSearch color="blue" />
+        </button>
+      </form>
 
       {status === "authenticated" ? (
         <div className="d-flex justify-content-end">
