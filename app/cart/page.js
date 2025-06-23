@@ -12,28 +12,52 @@ export default function Cart() {
   const [step, setStep] = useState(1);
 
   const handleNextStep = () => {
-    setStep(step + 1);
+    setStep((prev) => prev + 1);
   };
 
   const handlePreviousStep = () => {
-    setStep(step - 1);
+    setStep((prev) => prev - 1);
   };
 
+  const tickIcon = (stepNumber) => {
+    return step === stepNumber ? (
+      <GoCheckCircleFill
+        size={25}
+        className={step >= stepNumber ? "mb-1 text-success" : "text-muted"}
+      />
+    ) : null;
+  };
+
+  if (!cartItems.length) {
+    return (
+      <div className="container d-flex justify-content-center align-items-center vh-100">
+        <div className="text-center">
+          <p className="lead">Your cart is empty</p>
+          <Link className="btn btn-primary btn-raised btn-lg" href="/shop">
+            Continue shopping
+          </Link>
+        </div>
+      </div>
+    );
+  }
   return (
     <div>
-      {step === 1 && (
-        <Step1 onNextStep={handleNextStep} cartItems={cartItems} />
-      )}
+      <div className="col-lg-6 offset-lg-3 my-5">
+        <div className="d-flex justify-content-between lead">
+          <div>{tickIcon(1)} Review Cart</div>
+          <div>{tickIcon(2)} Contact Details</div>
+          <div>{tickIcon(3)} Payment</div>
+        </div>
+      </div>
+
+      {step === 1 && <Step1 onNextStep={handleNextStep} />}
       {step === 2 && (
         <Step2
           onPreviousStep={handlePreviousStep}
           onNextStep={handleNextStep}
-          cartItems={cartItems}
         />
       )}
-      {step === 3 && (
-        <Step3 onPreviousStep={handlePreviousStep} cartItems={cartItems} />
-      )}
+      {step === 3 && <Step3 onPreviousStep={handlePreviousStep} />}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useCart } from "@/context/cart";
 import Link from "next/link";
 
-export default function AddToCart({ product }) {
+export default function AddToCart({ product, reviewAndCheckout = true }) {
   const { addToCart, updateQuantity, removeFromCart, cartItems } = useCart();
   const existingProduct = cartItems.find((item) => item?._id === product?._id);
   const initialQuantity = existingProduct ? existingProduct?.quantity : 1;
@@ -62,6 +62,15 @@ export default function AddToCart({ product }) {
               +
             </button>
           </div>
+
+          {reviewAndCheckout && (
+            <Link
+              className="btn btn-outline-danger btn-raised btn-block mt-2"
+              href="/cart"
+            >
+              Review & Checkout
+            </Link>
+          )}
         </div>
       ) : (
         <button
