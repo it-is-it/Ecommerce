@@ -5,6 +5,18 @@ import ProductLike from "@/components/product/ProductLike";
 import ProductRating from "@/components/product/ProductRating";
 import UserReviews from "@/components/product/UserReviews";
 
+export async function generateMetadata({ params }) {
+  const product = await getProduct(params?.slug);
+
+  return {
+    title: product?.title?.substring(0, 60),
+    description: product?.description?.substring(0, 160),
+    openGraph: {
+      images: product?.images[0]?.secure_url,
+    },
+  };
+}
+
 dayjs.extend(relativeTime);
 
 async function getProduct(slug) {
