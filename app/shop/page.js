@@ -1,4 +1,6 @@
 import ProductFilter from "@/components/product/ProductFilter";
+import Pagination from "@/components/product/Pagination";
+import ProductCard from "@/components/product/ProductCard";
 
 export const dynamic = "force-dynamic";
 
@@ -14,7 +16,7 @@ async function getProducts(searchParams) {
   }).toString();
   try {
     const response = await fetch(
-      `${process.env.API}/product/filters?${searchQuery}`,
+      `${process.env.API}/product?${searchQuery}`,
       {
         method: "GET",
       }
@@ -24,7 +26,8 @@ async function getProducts(searchParams) {
     }
     const data = await response.json();
     if (!data || !Array.isArray(data.products)) {
-      throw new Error("No products returned");
+      console.error("No products returned");
+      return { products: [], currentPage: 1, totalPages: 1 };
     }
     return data;
   } catch (err) {
@@ -35,13 +38,35 @@ async function getProducts(searchParams) {
 
 export default async function Shop({ searchParams }) {
   const resolvedSearchParams = await searchParams;
-  const data = await getProducts(resolvedSearchParams);
+  const { currentPage, totalPages, products } = await getProducts(
+    resolvedSearchParams
+  );
+
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-lg-3 overflow-auto" style={{ maxHeight: "90vh" }}>
           <ProductFilter searchParams={resolvedSearchParams} />
-          <div className="col-lg-9">Products list</div>
+        </div>
+        <div className="col-lg-9 overflow-auto" style={{ maxHeight: "90vh" }}>
+          <h4 className="text-center fw-bold mt-3">Shop Latest Products</h4>
+
+          <div className="row">
+            {products?.map((product) => (
+              <div className="col-lg-4" key={product._id}>
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
+
+          <br />
+
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            searchParams={resolvedSearchParams}
+            pathname="/shop"
+          />
         </div>
       </div>
     </div>

@@ -22,15 +22,14 @@ export default function ProductCard({ product }) {
       </div>
       <div className="card-body">
         <Link href={`/product/${product?.slug}`}>
-          <div
-            className="card-title"
-            dangerouslySetInnerHTML={{
-              __html:
-                product?.title?.length > 50
-                  ? `${product?.title?.substring(0, 50)}`
-                  : product?.title,
-            }}
-          />
+          <div className="card-title flex justify-between items-center">
+            <strong>{product?.price ? `$${product.price} ` : "N/A"}</strong>
+            <span className="text-blue-600">
+              {product?.title?.length > 50
+                ? product.title.substring(0, 50) + "..."
+                : product.title}
+            </span>
+          </div>
         </Link>
         <div
           className="card-text"
