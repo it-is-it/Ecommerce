@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { useCart } from "@/context/cart";
 import OrderSummary from "@/components/cart/OrderSummary";
@@ -14,14 +16,11 @@ export default function Step3({ onPreviousStep }) {
         _id: item._id,
         quantity: item.quantity,
       }));
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API}/user/stripe/session`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ cartItems: cartData }),
-        }
-      );
+      const response = await fetch("/api/user/stripe/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cartItems: cartData }),
+      });
       if (response.ok) {
         const data = await response.json();
         window.location.href = data.url;

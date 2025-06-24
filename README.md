@@ -1,9 +1,8 @@
-# 🛒 Full Stack React Ecommerce
+# nextecom
 
-A fully functional, full stack ecommerce platform built with **Next.js**, **NextAuth**, and **MongoDB**, featuring complete authentication, product management, cart system, secure checkout, and admin dashboard capabilities.
+NextEcom is a full-stack ecommerce application built with Next.js 15 (App Router), NextAuth.js, MongoDB, and Stripe.
 
-> **Live Demo**: [Next Ecommerce WebApp](https://nextecom-bay.vercel.app/)]  
-> **Demo Login**: `test@test.com` / `test1234`
+> **Demo Credentials**: test@test.com / test1234
 
 ---
 
@@ -59,40 +58,37 @@ A complete ecommerce experience allowing users to browse, filter, and purchase p
 
 ## 🚀 Getting Started
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   ```
-
-````
-
-2. Navigate into the project directory:
+1. Clone the repo and install dependencies:
 
    ```bash
-   cd your-repo-name
-   ```
-
-3. Install dependencies:
-
-   ```bash
+   git clone https://github.com/your-username/nextecom.git
+   cd nextecom
    npm install
    ```
 
-4. Set up `.env.local` with required credentials:
+2. Create a `.env.local` file in the project root and add:
 
    ```env
-   MONGODB_URI=your_mongodb_connection
-   NEXTAUTH_SECRET=your_secret
+   MONGODB_URI=<your_mongodb_connection_string>
+   NEXTAUTH_SECRET=<your_nextauth_secret>
    NEXTAUTH_URL=http://localhost:3000
-   CLOUDINARY_URL=your_cloudinary_url
-   STRIPE_SECRET_KEY=your_stripe_key
-   ...
+   STRIPE_SECRET_KEY=<your_stripe_secret_key>
+   STRIPE_TAX_RATE=<your_stripe_tax_rate_id>
+   STRIPE_SHIPPING_RATE=<your_stripe_shipping_rate_id>
+   DOMAIN=http://localhost:3000
+   CLOUDINARY_URL=<your_cloudinary_url>
    ```
 
-5. Run the development server:
+3. Run the development server:
 
    ```bash
    npm run dev
+   ```
+
+4. Build & start for production:
+   ```bash
+   npm run build
+   npm start
    ```
 
 ---
@@ -106,4 +102,7 @@ A complete ecommerce experience allowing users to browse, filter, and purchase p
 ## 📩 Feedback & Contributions
 
 Feel free to fork this project, open issues, or submit PRs. Feedback is always welcome!
-````
+
+```
+
+```

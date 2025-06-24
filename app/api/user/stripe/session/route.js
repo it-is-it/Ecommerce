@@ -1,20 +1,20 @@
+export const runtime = "nodejs";
+
 import { NextResponse } from "next/server";
-import { currentUser } from "@/utils/currentUser";
+import { getToken } from "next-auth/jwt";
 import dbConnect from "@/utils/dbConnect";
 import Product from "@/models/product";
-
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+import Stripe from "stripe";
 
 export async function POST(req) {
-  await dbConnect();
-  const _req = await req.json();
-  console.log("_req in stripe checkout session api", _req);
-  const { cartItems, couponCode } = _req;
-  const token = await getToken({
-    req,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
   try {
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+    const { origin } = new URL(req.url);
+    await dbConnect();
+    const _req = await req.json();
+    console.log("_req in stripe checkout session api", _req);
+    const { cartItems, couponCode } = _req;
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     const lineItems = await Promise.all(
       cartItems.map(async (item) => {
         const product = await Product.findById(item._id);
@@ -34,7 +34,8 @@ export async function POST(req) {
       })
     );
     const session = await stripe.checkout.sessions.create({
-      success_url: `${process.env.DOMAIN}/dashboard/user/stripe/success`,
+      success_url: `${origin}/dashboard/user/stripe/success`,
+      cancel_url: `${origin}/cart`,
       client_reference_id: token?.user?._id,
       line_items: lineItems,
       mode: "payment",
@@ -63,11 +64,9 @@ export async function POST(req) {
     console.log("session", session);
     return NextResponse.json(session);
   } catch (error) {
-    console.log(error);
+    console.error("stripe session error", error);
     return NextResponse.json(
-      {
-        error: "Server error. Please try again",
-      },
+      { error: "Server error. Please try again." },
       { status: 500 }
     );
   }
