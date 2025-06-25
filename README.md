@@ -100,11 +100,52 @@ A complete ecommerce experience allowing users to browse, filter, and purchase p
 
 ---
 
-<!-- ## 📷 Screenshots
+## 📷 Screenshots
 
-> *(Optional: Add UI screenshots of homepage, product list, cart, admin panel, etc.)* -->
+Login Page
+![Login Page](public/images/loginPage.png)
 
----
+Home Page
+![Home Page](public/images/homePage.png)
+
+Admin Dashboard
+![Admin Dashboard](public/images/adminDashboard.png)
+
+Create Product Page
+![Create Product Page](public/images/createProduct.png)
+
+Update Product Page
+![Update Product Page](public/images/updateProduct.png)
+
+Shop Page
+![Shop Page](public/images/shopPage.png)
+
+Searching Product
+![Searching Product](public/images/searching.png)
+
+Product Page
+![Product Page](public/images/product.png)
+
+Review Cart
+![Review Cart](public/images/review.png)
+
+Contact Details
+![Contact Details](public/images/contact.png)
+
+Checkout Page
+![Checkout Page](public/images/checkout.png)
+
+Paying Through Stripe
+![Paying Through Stripe](public/images/paying.png)
+
+Order Page
+![Order Page](public/images/order.png)
+
+User Orders Page
+![User Orders Page](public/images/userOrders.png)
+
+Admin Orders Page
+![Admin Orders Page](public/images/adminOrder.png)
 
 ---
 
