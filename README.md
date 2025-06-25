@@ -7,20 +7,6 @@
 
 ---
 
----
-
-## Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Installation & Usage](#installation--usage)
-- [Screenshots](#screenshots)
-- [Inspiration](#inspiration)
-- [Contributing](#contributing)
-
----
-
 ## Overview
 
 A complete ecommerce experience allowing users to browse, filter, and purchase products, while giving admins control over managing categories, tags, products, orders, and user roles.
@@ -58,16 +44,18 @@ A complete ecommerce experience allowing users to browse, filter, and purchase p
 
 ---
 
-## Tech Stack
+# ⚙️ Tech Stack
 
-- **Frontend**: Next.js, Bootstrap / Material CSS
-- **Authentication**: NextAuth.js (Email + Google)
-- **Backend**: Next.js API Routes
-- **Database**: MongoDB (Mongoose)
-- **Payments**: Stripe API + Webhooks
-- **Media Storage**: Cloudinary
-- **Email**: Nodemailer
-- **Deployment**: Vercel
+| Category           | Technology                         |
+| ------------------ | ---------------------------------- |
+| **Frontend**       | Next.js, Tailwind CSS, Bootstrap   |
+| **Authentication** | NextAuth.js (Email & Google OAuth) |
+| **Backend**        | Next.js API Routes                 |
+| **Database**       | MongoDB with Mongoose ORM          |
+| **Payments**       | Stripe API + Webhooks              |
+| **Media Storage**  | Cloudinary                         |
+| **Email**          | Nodemailer                         |
+| **Deployment**     | Vercel                             |
 
 ---
 
@@ -185,3 +173,10 @@ Inspired by real-world marketplaces like Amazon, Daraz, and Flipkart, this proje
 ### Contact
 
 Feel free to reach out on LinkedIn or open an issue on GitHub.
+
+## 🔗 Related Projects
+
+Here are some other projects you might find useful or inspiring:
+
+- 🏨 [The Wild Oasis](https://github.com/it-is-it/the-wild-oasis) — Hotel management dashboard with modern UI and real-time data handling.
+- 🌍 [Worldwise](https://github.com/it-is-it/Worldwise) — Travel tracking app to mark places you’ve visited and plan new adventures.
