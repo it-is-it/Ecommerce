@@ -4,9 +4,12 @@ import ProductImage from "@/components/product/ProductImage";
 import ProductLike from "@/components/product/ProductLike";
 import ProductRating from "@/components/product/ProductRating";
 import UserReviews from "@/components/product/UserReviews";
+import CouponCode from "@/components/product/CouponCode";
+import AddToCart from "@/components/product/AddToCart";
 
 export async function generateMetadata({ params }) {
-  const product = await getProduct(params?.slug);
+  const { slug } = await params;
+  const product = await getProduct(slug);
 
   return {
     title: product?.title?.substring(0, 60),
@@ -41,9 +44,9 @@ export default async function ProductViewPage({ params }) {
   return (
     <div className="container my-4">
       <div className="row">
-        <div className="col-lg-8 offset-lg-2 card py-5">
+        <div className="col-lg-8 offset-lg-2 card pt-5">
           <h1 className="text-center">{product?.title}</h1>
-
+          <CouponCode product={product} />
           <ProductImage product={product} />
 
           <div className="card-body">
@@ -71,6 +74,10 @@ export default async function ProductViewPage({ params }) {
           </div>
           <div className="card-footer">
             <ProductRating product={product} />
+
+            <div className="my-3">
+              <AddToCart product={product} />
+            </div>
           </div>
         </div>
       </div>

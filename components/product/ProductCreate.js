@@ -59,6 +59,7 @@ export default function ProductCreate() {
         }}
         className="form-control p-2 mb-2"
       ></textarea>
+
       <input
         type="number"
         placeholder="Product Price"
@@ -71,6 +72,21 @@ export default function ProductCreate() {
             : setProduct({ ...product, price: e.target.value });
         }}
       />
+      {updatingProduct && (
+        <input
+          type="number"
+          placeholder="Product Previous Price"
+          min="1"
+          className="form-control p-2 mb-2"
+          value={updatingProduct?.previousPrice ?? ""}
+          onChange={(e) => {
+            setUpdatingProduct({
+              ...updatingProduct,
+              previousPrice: e.target.value,
+            });
+          }}
+        />
+      )}
       <input
         type="text"
         placeholder="Product Color"

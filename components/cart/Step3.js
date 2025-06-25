@@ -6,7 +6,7 @@ import OrderSummary from "@/components/cart/OrderSummary";
 import toast from "react-hot-toast";
 
 export default function Step3({ onPreviousStep }) {
-  const { cartItems } = useCart();
+  const { cartItems, validCoupon, couponCode } = useCart();
   const [loading, setLoading] = useState(false);
 
   const handleClick = async () => {
@@ -16,10 +16,14 @@ export default function Step3({ onPreviousStep }) {
         _id: item._id,
         quantity: item.quantity,
       }));
+      const payload = { cartItems: cartData };
+      if (validCoupon) {
+        payload.couponCode = couponCode;
+      }
       const response = await fetch("/api/user/stripe/session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cartItems: cartData }),
+        body: JSON.stringify(payload),
       });
       if (response.ok) {
         const data = await response.json();

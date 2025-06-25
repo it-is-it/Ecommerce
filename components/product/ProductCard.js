@@ -24,7 +24,7 @@ export default function ProductCard({ product }) {
       <div className="card-body">
         <Link href={`/product/${product?.slug}`}>
           <div className="card-title flex justify-between items-center">
-            <strong>{product?.price ? `$${product.price} ` : "N/A"}</strong>
+            <strong>{product?.price?.toFixed(2) || "N/A"}</strong>{" "}
             <span className="text-blue-600">
               {product?.title?.length > 50
                 ? product.title.substring(0, 50) + "..."
@@ -32,6 +32,11 @@ export default function ProductCard({ product }) {
             </span>
           </div>
         </Link>
+        {product?.previousPrice > product?.price && (
+          <h5 className="card-title text-danger">
+            <del>{product?.previousPrice?.toFixed(2)}</del>
+          </h5>
+        )}
         <div
           className="card-text"
           dangerouslySetInnerHTML={{

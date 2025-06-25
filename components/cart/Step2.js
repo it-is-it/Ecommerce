@@ -3,14 +3,18 @@ import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import OrderSummary from "./OrderSummary";
+import { useCart } from "@/context/cart";
 
 export default function Step2({ onNextStep, onPreviousStep }) {
   const { data, status, update } = useSession();
   const [deliveryAddress, setDeliveryAddress] = useState(
     data?.user?.deliveryAddress || ""
   );
+  const { couponCode, setCouponCode, handleCoupon } = useCart();
+
   const currentUrl =
     typeof window !== "undefined" ? window.location.href : "/cart";
+
   const handleAddressThenNext = async () => {
     try {
       const response = await fetch(
@@ -97,6 +101,22 @@ export default function Step2({ onNextStep, onPreviousStep }) {
               placeholder="Enter your delivery address"
               rows="5"
             /> */}
+          </div>
+          <div>
+            <input
+              type="text"
+              value={couponCode}
+              onChange={(e) => setCouponCode(e.target.value)}
+              className="form-control mb-2 px-2 mt-4"
+              placeholder="Enter your coupon code here"
+            />
+            <button
+              className="btn btn-success btn-raised"
+              onClick={() => handleCoupon(couponCode)}
+              disabled={!couponCode.trim()}
+            >
+              Apply Coupon
+            </button>
           </div>
           <div className="d-flex justify-content-end my-4">
             <button

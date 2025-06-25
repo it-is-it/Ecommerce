@@ -1,9 +1,13 @@
 import { createContext, useState, useEffect, useContext } from "react";
+import toast from "react-hot-toast";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [couponCode, setCouponCode] = useState("");
+  const [percentOff, setPercentOff] = useState(0);
+  const [validCoupon, setValidCoupon] = useState(false);
 
   useEffect(() => {
     const storedCartItems = JSON.parse(
@@ -50,6 +54,34 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const handleCoupon = async (coupon) => {
+    try {
+      const response = await fetch(`${process.env.API}/stripe/coupon`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ couponCode: coupon }),
+      });
+      if (!response.ok) {
+        toast.error("Invalid coupon code");
+        setPercentOff(0);
+        setValidCoupon(false);
+        return;
+      } else {
+        const data = await response.json();
+        setPercentOff(data.percent_off);
+        setValidCoupon(true);
+        toast.success(`${data?.name} applied successfully`);
+      }
+    } catch (err) {
+      console.log(err);
+      setPercentOff(0);
+      setValidCoupon(false);
+      toast.error("Invalid coupon code. Please try again.");
+    }
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -57,6 +89,11 @@ export const CartProvider = ({ children }) => {
         addToCart,
         removeFromCart,
         updateQuantity,
+        handleCoupon,
+        couponCode,
+        setCouponCode,
+        percentOff,
+        validCoupon,
       }}
     >
       {children}

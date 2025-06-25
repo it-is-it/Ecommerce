@@ -37,8 +37,8 @@ export default function AddToCart({ product, reviewAndCheckout = true }) {
   return (
     <div>
       {existingProduct ? (
-        <div className="input-group">
-          <div className="input-group-prepend">
+        <div>
+          <div className="d-flex justify-content-between">
             <button
               onClick={handleDecrement}
               type="button"
@@ -46,14 +46,14 @@ export default function AddToCart({ product, reviewAndCheckout = true }) {
             >
               -
             </button>
-          </div>
-          <input
-            type="number"
-            className="form-control no-spin-arrows mx-5 text-center"
-            value={quantity}
-            onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
-          />
-          <div className="input-group-append">
+
+            <input
+              type="number"
+              className="form-control no-spin-arrows mx-5 text-center"
+              value={quantity}
+              onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
+            />
+
             <button
               onClick={handleIncrement}
               type="button"
