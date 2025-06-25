@@ -53,6 +53,8 @@ export async function POST(req) {
           }
         }
         return NextResponse.json({ ok: true });
+      default:
+        return NextResponse.json({ received: true });
     }
   } catch (err) {
     console.log("====================================> ", err);

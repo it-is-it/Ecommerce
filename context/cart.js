@@ -54,6 +54,13 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const clearCart = () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("cartItems");
+    }
+    setCartItems([]);
+  };
+
   const handleCoupon = async (coupon) => {
     try {
       const response = await fetch(`${process.env.API}/stripe/coupon`, {
@@ -89,6 +96,7 @@ export const CartProvider = ({ children }) => {
         addToCart,
         removeFromCart,
         updateQuantity,
+        clearCart,
         handleCoupon,
         couponCode,
         setCouponCode,

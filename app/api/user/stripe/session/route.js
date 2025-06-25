@@ -7,14 +7,14 @@ import Product from "@/models/product";
 import Stripe from "stripe";
 
 export async function POST(req) {
+  await dbConnect();
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+  const _req = await req.json();
+  const { cartItems, couponCode } = _req;
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
   try {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
     const { origin } = new URL(req.url);
-    await dbConnect();
-    const _req = await req.json();
-    console.log("_req in stripe checkout session api", _req);
-    const { cartItems, couponCode } = _req;
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     const lineItems = await Promise.all(
       cartItems.map(async (item) => {
         const product = await Product.findById(item._id);

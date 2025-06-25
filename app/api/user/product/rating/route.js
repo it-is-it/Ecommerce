@@ -15,7 +15,10 @@ export async function POST(req) {
   console.log("Authenticated user:", user);
   if (!user) {
     console.error("Unauthenticated rating attempt");
-    return NextResponse.json({ err: "Authentication required" }, { status: 401 });
+    return NextResponse.json(
+      { err: "Authentication required" },
+      { status: 401 }
+    );
   }
 
   try {

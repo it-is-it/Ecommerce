@@ -59,7 +59,9 @@ export default async function ProductViewPage({ params }) {
               }}
             />
 
-            <div className="alert alert-primary">Brand: {product?.brand}</div>
+            <div className="alert alert-primary mt-4">
+              Brand: {product?.brand}
+            </div>
           </div>
           <div className="card-footer d-flex justify-content-between">
             <small>Category: {product?.category?.name}</small>

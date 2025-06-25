@@ -2,7 +2,13 @@ import React from "react";
 import { useCart } from "@/context/cart";
 import Image from "next/image";
 export default function OrderSummary() {
-  const { cartItems } = useCart();
+  const { cartItems, validCoupon, percentOff } = useCart();
+  const subtotal = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+  const discount = validCoupon ? subtotal * (percentOff / 100) : 0;
+  const total = subtotal - discount;
   const calculateTotal = () => {
     return cartItems.reduce(
       (total, item) => total + item.price * item.quantity,
@@ -53,10 +59,20 @@ export default function OrderSummary() {
         ))}
       </ul>
       <div className="d-flex justify-content-between p-1">
+        <p>Subtotal:</p>
+        <p>${subtotal.toFixed(2)}</p>
+      </div>
+      {validCoupon && (
+        <div className="d-flex justify-content-between p-1">
+          <p>Discount ({percentOff}%):</p>
+          <p className="text-danger">−${discount.toFixed(2)}</p>
+        </div>
+      )}
+      <div className="d-flex justify-content-between p-1">
         <p>
           Total {totalItems} {itemOrItems}:
         </p>
-        <p className="h4">${calculateTotal().toFixed(2)}</p>
+        <p className="h4">${total.toFixed(2)}</p>
       </div>
     </div>
   );
