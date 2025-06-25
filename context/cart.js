@@ -63,7 +63,7 @@ export const CartProvider = ({ children }) => {
 
   const handleCoupon = async (coupon) => {
     try {
-      const response = await fetch(`${process.env.API}/stripe/coupon`, {
+      const response = await fetch('/api/stripe/coupon', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
