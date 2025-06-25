@@ -121,7 +121,7 @@ Shop Page
 ![Shop Page](public/images/shopPage.png)
 
 Searching Product
-![Searching Product](public/images/searching.png)
+![Searching Product](public/images/Searching.png)
 
 Product Page
 ![Product Page](public/images/product.png)
@@ -145,7 +145,7 @@ User Orders Page
 ![User Orders Page](public/images/userOrders.png)
 
 Admin Orders Page
-![Admin Orders Page](public/images/adminOrder.png)
+![Admin Orders Page](public/images/adminOrders.png)
 
 ---
 
