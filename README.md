@@ -1,20 +1,33 @@
-# nextecom
+# NextEcom
 
-NextEcom is a full-stack ecommerce application built with Next.js 15 (App Router), NextAuth.js, MongoDB, and Stripe.
+A full-stack eCommerce application showcasing modern web development with Next.js 15, NextAuth.js, MongoDB, and Stripe.
 
-> **Demo Credentials**: test@test.com / test1234
+**Demo**
 
-> 🔗 [Demo Website](https://nextecom-bay.vercel.app/)
+- Website: [https://nextecom-bay.vercel.app/](https://nextecom-bay.vercel.app/)
+- Credentials: `test@test.com` / `test1234`
 
 ---
 
-## 📌 What It Does
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Installation & Usage](#installation--usage)
+- [Screenshots](#screenshots)
+- [Inspiration](#inspiration)
+- [Contributing](#contributing)
+
+---
+
+## Overview
 
 A complete ecommerce experience allowing users to browse, filter, and purchase products, while giving admins control over managing categories, tags, products, orders, and user roles.
 
 ---
 
-## ⚙️ Features
+## Features
 
 ### 🛍️ User Features
 
@@ -45,7 +58,7 @@ A complete ecommerce experience allowing users to browse, filter, and purchase p
 
 ---
 
-## 🧑‍💻 Tech Stack
+## Tech Stack
 
 - **Frontend**: Next.js, Bootstrap / Material CSS
 - **Authentication**: NextAuth.js (Email + Google)
@@ -100,7 +113,119 @@ A complete ecommerce experience allowing users to browse, filter, and purchase p
 
 ---
 
-## 📷 Screenshots
+---
+
+# 🛒 NextEcom
+
+**NextEcom** is a full-featured, full-stack eCommerce web application built with **Next.js 15 (App Router)**, **MongoDB**, **Stripe**, and **NextAuth.js**. It includes both user and admin functionalities, secure payment processing, and a modern UI powered by Bootstrap and Tailwind.
+
+> 🌐 [Live Demo](https://nextecom-bay.vercel.app/)  
+> 🔐 **Demo Credentials:** `test@test.com` / `test1234`
+
+---
+
+## ⚙️ Tech Stack
+
+| Frontend     | Backend             | Services              |
+| ------------ | ------------------- | --------------------- |
+| Next.js 15   | Next.js API Routes  | Stripe API + Webhooks |
+| Tailwind CSS | Mongoose / MongoDB  | Cloudinary            |
+| Bootstrap    | NextAuth.js (OAuth) | Nodemailer (Email)    |
+
+---
+
+## 💡 Features
+
+### 🛍️ User Features
+
+- 🔐 Email/password & Google login
+- 🔍 Browse, filter, and search products
+- ⭐ Leave reviews and ratings
+- 🛒 Add/remove/update cart items
+- 💳 Checkout with Stripe
+- 📦 Track order history and status
+- 🔁 Request order refunds
+- 🔑 Forgot/reset password
+
+### 🛠️ Admin Features
+
+- 📊 Dashboard with charts & analytics
+- 🧩 Manage categories, tags, brands
+- 🖼️ Upload images via Cloudinary
+- 📝 Create/update/delete products
+- 🛒 View/manage orders & refunds
+- 🧑‍⚖️ Role-based access control
+- 💬 Moderate reviews
+
+### 🧩 Extras
+
+- Pagination for product listings
+- Dark/Light mode support (optional)
+- Star rating component
+- Related products suggestion
+- Analytics using Recharts
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone & Install
+
+```bash
+git clone https://github.com/your-username/nextecom.git
+cd nextecom
+npm install
+```
+
+### 2. Environment Setup
+
+Create a `.env.local` in the root directory:
+
+```env
+# MongoDB
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/nextecom
+
+# Auth
+NEXTAUTH_SECRET=your_secret_key
+NEXTAUTH_URL=http://localhost:3000
+
+# Stripe
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+STRIPE_TAX_RATE=txr_...
+STRIPE_SHIPPING_RATE=shr_...
+
+# Domain
+DOMAIN=http://localhost:3000
+
+# Cloudinary
+CLOUDINARY_URL=cloudinary://API_KEY:API_SECRET@cloud_name
+```
+
+> 💡 You can get your `STRIPE_WEBHOOK_SECRET` by running:
+
+```bash
+stripe listen --forward-to localhost:3000/api/stripe-webhook
+```
+
+### 3. Run Development Server
+
+```bash
+npm run dev
+```
+
+### 4. Build & Start for Production
+
+```bash
+npm run build
+npm start
+```
+
+---
+
+## 📸 Screenshots
+
+## Screenshots
 
 Login Page
 ![Login Page](public/images/loginPage.png)
@@ -147,18 +272,18 @@ User Orders Page
 Admin Orders Page
 ![Admin Orders Page](public/images/adminOrders.png)
 
----
+## Inspiration
 
-## 🧠 Inspiration
+Inspired by real-world marketplaces like Amazon, Daraz, and Flipkart, this project was built to learn and demonstrate full-stack eCommerce app development using modern tools and cloud services.
 
-This project was built to practice full-stack eCommerce development using modern technologies like Next.js 15, Stripe, and MongoDB. Inspired by real-world marketplaces like Amazon and Flipkart.
+## Contributing
 
----
+Contributions are welcome! Feel free to fork the repository, file issues for bugs or feature requests, and submit pull requests. For major changes, please open an issue first to discuss your ideas.
 
-## 📩 Feedback & Contributions
+### Contact
 
-Feel free to fork this project, open issues, or submit PRs. Feedback is always welcome!
+Feel free to reach out on LinkedIn or open an issue on GitHub.
 
-```
+## License
 
-```
+This project is open-source under the [MIT License](LICENSE).
