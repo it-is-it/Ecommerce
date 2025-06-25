@@ -4,7 +4,7 @@ NextEcom is a full-stack ecommerce application built with Next.js 15 (App Router
 
 > **Demo Credentials**: test@test.com / test1234
 
-> [DemoWebsite]https://nextecom-bay.vercel.app/
+> 🔗 [Demo Website](https://nextecom-bay.vercel.app/)
 
 ---
 
@@ -79,7 +79,12 @@ A complete ecommerce experience allowing users to browse, filter, and purchase p
    STRIPE_SHIPPING_RATE=<your_stripe_shipping_rate_id>
    DOMAIN=http://localhost:3000
    CLOUDINARY_URL=<your_cloudinary_url>
+   STRIPE_WEBHOOK_SECRET=<from Stripe CLI or Dashboard>
    ```
+
+   # If testing Stripe webhooks locally
+
+   stripe listen --forward-to localhost:3000/api/stripe-webhook
 
 3. Run the development server:
 
@@ -98,6 +103,14 @@ A complete ecommerce experience allowing users to browse, filter, and purchase p
 <!-- ## 📷 Screenshots
 
 > *(Optional: Add UI screenshots of homepage, product list, cart, admin panel, etc.)* -->
+
+---
+
+---
+
+## 🧠 Inspiration
+
+This project was built to practice full-stack eCommerce development using modern technologies like Next.js 15, Stripe, and MongoDB. Inspired by real-world marketplaces like Amazon and Flipkart.
 
 ---
 
